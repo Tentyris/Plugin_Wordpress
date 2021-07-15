@@ -38,11 +38,33 @@ class Youtube_Widget extends WP_Widget{
                     }).done(function (data) {
                         jQuery("#displayLikes").html("");
                         for (var likes in data["items"]) {
-                            console.log(data["items"][likes]["statistics"]["likeCount"]);
                             jQuery("#displayLikes").append("<img src=\"https://uxwing.com/wp-content/themes/uxwing/download/10-brands-and-social-media/blue-like-button.png\" width=\"25px\" height=\"25px\"> "
                              + data["items"][likes]["statistics"]["likeCount"] 
                              + " <img src=\"https://www.freeiconspng.com/uploads/free-youtube-dislike-pictures-15.png\" width=\"25px\" height=\"25px\"> " 
                              + data["items"][likes]["statistics"]["dislikeCount"]);
+                        }
+                    });
+                </script>';
+        }
+
+        if ($instance['views'] == 'on') {
+            ?>
+            <p id="viewDisplay"></p>
+            <?php
+            echo '<script type="text/javascript">
+                    jQuery.ajax({
+                       url: \'https://www.googleapis.com/youtube/v3/videos\',
+                       method: \'GET\',
+                       headers: {
+                                "Authorization":"Bearer",
+                           "Accept":"application/json"
+                       },
+                       data: "part=statistics&id='. $youtube .'&key=AIzaSyDIXzmnJ_QPZg-eTtb7PB32OBG8PzA26TU"
+                    }).done(function (data) {
+                        jQuery("#viewDisplay").html("");
+                        for (var likes in data["items"]) {
+                            console.log(data["items"][likes]["statistics"]["viewCount"]);
+                            jQuery("#viewDisplay").append("Vues : " + data["items"][likes]["statistics"]["viewCount"]);
                         }
                     });
                 </script>';
@@ -83,6 +105,7 @@ class Youtube_Widget extends WP_Widget{
         $height = isset($instance['height']) ? $instance['height'] : '';
         $comments = (!empty($instance[ 'comments' ])) ? $instance['comments'] : '';
         $likes = (!empty($instance[ 'likes' ])) ? $instance['likes'] : '';
+        $views = (!empty($instance[ 'views' ])) ? $instance['views'] : '';
         ?>
             <p>
             <label for="<?= $this->get_field_id('title') ?>">
@@ -125,6 +148,16 @@ class Youtube_Widget extends WP_Widget{
                     <?php checked( $instance[ 'likes' ], 'on' ); ?> />
             </p>
             <p>
+                <label for="<?php echo $this->get_field_id( 'views' ); ?>">
+                    <?php esc_attr_e( 'views :', 'yts_domain' ); ?>
+                </label>
+                <input class="checkbox"
+                       id="<?php echo $this->get_field_id( 'views' ); ?>"
+                       name="<?php echo $this->get_field_name( 'views' ); ?>"
+                       type="checkbox"
+                    <?php checked( $instance[ 'views' ], 'on' ); ?> />
+            </p>
+            <p>
             <label for="<?= $this->get_field_id('width') ?>">Largeur</label>
             <input 
                 class="widefat" 
@@ -155,6 +188,7 @@ class Youtube_Widget extends WP_Widget{
         $instance['height'] = (!empty($newInstance['height'])) ? $newInstance['height'] : '';
         $instance['comments'] = $newInstance['comments'];
         $instance['likes'] = $newInstance['likes'];
+        $instance['views'] = $newInstance['views'];
 
         return $instance;
     }
