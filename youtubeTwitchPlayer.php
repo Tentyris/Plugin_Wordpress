@@ -23,6 +23,15 @@ require_once(plugin_dir_path(__FILE__).'widgets/Youtube_Widget.php');
 // On charge la classe Subscribe_Youtube_Widget
 require_once(plugin_dir_path(__FILE__).'widgets/subscribe_youtube_widget.php');
 
+// On charge la classe Twitch_Widget
+require_once(plugin_dir_path(__FILE__).'widgets/Twitch_Widget.php');
+
+// On charge la classe Twitch_Widget
+require_once(plugin_dir_path(__FILE__).'widgets/Twitch_Video_Widget.php');
+
+// On charge la classe Twitch_Widget
+require_once(plugin_dir_path(__FILE__).'widgets/Twitch_Chat_Widget.php');
+
 // On enregistre le widget Youtube
 function register_youtube_widget() {
     register_widget('Youtube_Widget');
@@ -34,5 +43,23 @@ function yts_load_widget() {
     register_widget( 'Subscribe_Youtube_Widget' );
 }
 add_action( 'widgets_init', 'yts_load_widget' );
+
+// On enregistre le widget Twitch
+function register_twitch_widget() {
+    register_widget('Twitch_Widget');
+}
+add_action('widgets_init', 'register_twitch_widget');
+
+// On enregistre le widget Twitch
+function register_twitch_video_widget() {
+    register_widget('Twitch_Video_Widget');
+}
+add_action('widgets_init', 'register_twitch_video_widget');
+
+// On enregistre le widget Twitch
+function register_twitch_chat_widget() {
+    register_widget('Twitch_Chat_Widget');
+}
+add_action('widgets_init', 'register_twitch_chat_widget');
 
 
