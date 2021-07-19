@@ -47,6 +47,17 @@ class Twitch_Chat_Widget extends WP_Widget {
                 id="<?= $this->get_field_name('title') ?>">
         </p>
         <p>
+            <label for="<?= $this->get_field_id('parent') ?>">
+                <?php esc_attr_e('Nom de votre site : ', 'twitch_domain'); ?>
+            </label>
+            <input
+                    class="widefat"
+                    type="text"
+                    name="<?= $this->get_field_name('parent') ?>"
+                    value="<?= esc_attr($parent) ?>"
+                    id="<?= $this->get_field_name('parent') ?>">
+        </p>
+        <p>
             <label for="<?= $this->get_field_id('channel') ?>">
                 <?php esc_attr_e('Chaîne : ', 'ytstwc_domain'); ?>
             </label>
@@ -74,17 +85,6 @@ class Twitch_Chat_Widget extends WP_Widget {
                     name="<?= $this->get_field_name('height') ?>"
                     value="<?= esc_attr($height) ?>"
                     id="<?= $this->get_field_name('height') ?>">
-        </p>
-        <p>
-            <label for="<?= $this->get_field_id('parent') ?>">
-                <?php esc_attr_e('Nom de votre site : ', 'twitch_domain'); ?>
-            </label>
-            <input
-                    class="widefat"
-                    type="text"
-                    name="<?= $this->get_field_name('parent') ?>"
-                    value="<?= esc_attr($parent) ?>"
-                    id="<?= $this->get_field_name('parent') ?>">
         </p>
 
         <?php

@@ -20,7 +20,10 @@ class Youtube_Widget extends WP_Widget{
         $youtube = isset($instance['youtube']) ? $instance['youtube'] : '';
         $width = isset($instance['width']) ? $instance['width'] : '';
         $height = isset($instance['height']) ? $instance['height'] : '';
-        echo '<iframe width="'. esc_attr($width) .'" height="' . $height . '" src="https://www.youtube.com/embed/'. esc_attr($youtube) . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        $fullscreen = ($instance['fullscreen'] == 'on') ? 'allowfullscreen' : '';
+        $autoplay = ($instance['autoplay'] == 'on') ? 'autoplay;' : '';
+        echo '<iframe width="'. esc_attr($width) .'" height="' . $height . '" src="https://www.youtube.com/embed/'. esc_attr($youtube) . '" title="YouTube video player" frameborder="0" allow="accelerometer; '. $autoplay .' clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                ' . $fullscreen . '></iframe>';
 
         if ($instance['likes'] == 'on') {
             ?>
@@ -82,7 +85,7 @@ class Youtube_Widget extends WP_Widget{
                                 "Authorization":"Bearer",
                            "Accept":"application/json"
                        },
-                       data: "part=id%2C%20snippet&maxResults=10&order=relevance&videoId='. $youtube .'&key=AIzaSyDIXzmnJ_QPZg-eTtb7PB32OBG8PzA26TU"
+                       data: "part=id%2C%20snippet&maxResults='. $instance['commentsCount'] .'&order=relevance&videoId='. $youtube .'&key=AIzaSyDIXzmnJ_QPZg-eTtb7PB32OBG8PzA26TU"
                     }).done(function (data) {
                         jQuery("#commentsDisplay").html("");
                         for (var comment in data["items"]) {
@@ -106,6 +109,9 @@ class Youtube_Widget extends WP_Widget{
         $comments = (!empty($instance[ 'comments' ])) ? $instance['comments'] : '';
         $likes = (!empty($instance[ 'likes' ])) ? $instance['likes'] : '';
         $views = (!empty($instance[ 'views' ])) ? $instance['views'] : '';
+        $fullscreen = (!empty($instance[ 'fullscreen' ])) ? $instance['fullscreen'] : '';
+        $autoplay = (!empty($instance[ 'autoplay' ])) ? $instance['autoplay'] : '';
+        $commentsCount = (!empty($instance[ 'commentsCounts' ])) ? $instance['commentsCounts'] : '';
         ?>
             <p>
             <label for="<?= $this->get_field_id('title') ?>">
@@ -138,6 +144,15 @@ class Youtube_Widget extends WP_Widget{
                     <?php checked( $instance[ 'comments' ], 'on' ); ?> />
             </p>
             <p>
+                <label for="<?= $this->get_field_id('commentsCount') ?>">Nombre de commentaires : </label>
+                <input
+                        class="widefat"
+                        type="text"
+                        name="<?= $this->get_field_name('commentsCount') ?>"
+                        value="<?= esc_attr($commentsCount) ?>"
+                        id="<?= $this->get_field_name('commentsCount') ?>">
+            </p>
+            <p>
                 <label for="<?php echo $this->get_field_id( 'likes' ); ?>">
                     <?php esc_attr_e( 'Likes :', 'yts_domain' ); ?>
                 </label>
@@ -156,6 +171,26 @@ class Youtube_Widget extends WP_Widget{
                        name="<?php echo $this->get_field_name( 'views' ); ?>"
                        type="checkbox"
                     <?php checked( $instance[ 'views' ], 'on' ); ?> />
+            </p>
+            <p>
+                <label for="<?php echo $this->get_field_id( 'fullscreen' ); ?>">
+                    <?php esc_attr_e( 'fullscreen :', 'yts_domain' ); ?>
+                </label>
+                <input class="checkbox"
+                       id="<?php echo $this->get_field_id( 'fullscreen' ); ?>"
+                       name="<?php echo $this->get_field_name( 'fullscreen' ); ?>"
+                       type="checkbox"
+                    <?php checked( $instance[ 'fullscreen' ], 'on' ); ?> />
+            </p>
+            <p>
+                <label for="<?php echo $this->get_field_id( 'autoplay' ); ?>">
+                    <?php esc_attr_e( 'autoplay :', 'yts_domain' ); ?>
+                </label>
+                <input class="checkbox"
+                       id="<?php echo $this->get_field_id( 'autoplay' ); ?>"
+                       name="<?php echo $this->get_field_name( 'autoplay' ); ?>"
+                       type="checkbox"
+                    <?php checked( $instance[ 'autoplay' ], 'on' ); ?> />
             </p>
             <p>
             <label for="<?= $this->get_field_id('width') ?>">Largeur</label>
@@ -186,9 +221,12 @@ class Youtube_Widget extends WP_Widget{
         $instance['youtube'] = (!empty($newInstance['youtube'])) ? $newInstance['youtube'] : '';
         $instance['width'] = (!empty($newInstance['width'])) ? $newInstance['width'] : '';
         $instance['height'] = (!empty($newInstance['height'])) ? $newInstance['height'] : '';
+        $instance['commentsCount'] = (!empty($newInstance['commentsCount'])) ? $newInstance['commentsCount'] : '';
         $instance['comments'] = $newInstance['comments'];
         $instance['likes'] = $newInstance['likes'];
         $instance['views'] = $newInstance['views'];
+        $instance['fullscreen'] = $newInstance['fullscreen'];
+        $instance['autoplay'] = $newInstance['autoplay'];
 
         return $instance;
     }

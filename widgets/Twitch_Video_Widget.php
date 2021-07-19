@@ -79,6 +79,15 @@ class Twitch_Video_Widget extends WP_Widget {
                 id="<?= $this->get_field_name('width') ?>">
         </p>
         <p>
+            <label for="<?= $this->get_field_id('height') ?>">Hauteur</label>
+            <input
+                class="widefat"
+                type="text"
+                name="<?= $this->get_field_name('height') ?>"
+                value="<?= esc_attr($height) ?>"
+                id="<?= $this->get_field_name('height') ?>">
+        </p>
+        <p>
             <label for="<?php echo $this->get_field_id( 'fullscreen' ); ?>">
                 <?php esc_attr_e( 'fullscreen :', 'twitch_video_domain' ); ?>
             </label>
@@ -87,15 +96,6 @@ class Twitch_Video_Widget extends WP_Widget {
                    name="<?php echo $this->get_field_name( 'fullscreen' ); ?>"
                    type="checkbox"
                 <?php checked( $instance[ 'fullscreen' ], 'on' ); ?> />
-        </p>
-        <p>
-            <label for="<?= $this->get_field_id('height') ?>">Hauteur</label>
-            <input
-                class="widefat"
-                type="text"
-                name="<?= $this->get_field_name('height') ?>"
-                value="<?= esc_attr($height) ?>"
-                id="<?= $this->get_field_name('height') ?>">
         </p>
 
         <?php
