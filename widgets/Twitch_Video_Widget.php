@@ -31,7 +31,7 @@ class Twitch_Video_Widget extends WP_Widget {
 
     public function form( $instance ) {
         $title = isset($instance[ 'title' ]) ? $instance[ 'title' ] : '';
-        $channel = isset($instance[ 'channel' ]) ? $instance[ 'channel' ] : '';
+        $video = isset($instance[ 'video' ]) ? $instance[ 'video' ] : '';
         $width = isset($instance['width']) ? $instance['width'] : '';
         $height = isset($instance['height']) ? $instance['height'] : '';
         $parent = isset($instance['parent']) ? $instance['parent'] : '';
@@ -48,15 +48,15 @@ class Twitch_Video_Widget extends WP_Widget {
                 id="<?= $this->get_field_name('title') ?>">
         </p>
         <p>
-            <label for="<?= $this->get_field_id('channel') ?>">
-                <?php esc_attr_e('Chaîne : ', 'ytstwc_domain'); ?>
+            <label for="<?= $this->get_field_id('video') ?>">
+                <?php esc_attr_e('Identifiant vidéo : ', 'ytstwc_domain'); ?>
             </label>
             <input
                 class="widefat"
                 type="text"
-                name="<?= $this->get_field_name('channel') ?>"
-                value="<?= esc_attr($channel) ?>"
-                id="<?= $this->get_field_name('channel') ?>">
+                name="<?= $this->get_field_name('video') ?>"
+                value="<?= esc_attr($video) ?>"
+                id="<?= $this->get_field_name('video') ?>">
         </p>
         <p>
             <label for="<?= $this->get_field_id('parent') ?>">
@@ -104,7 +104,7 @@ class Twitch_Video_Widget extends WP_Widget {
     public function update( $newInstance, $oldInstance ) {
         $instance = array();
         $instance['title'] = (!empty($newInstance['title'])) ? $newInstance['title'] : '';
-        $instance['channel'] = (!empty($newInstance['channel'])) ? $newInstance['channel'] : '';
+        $instance['video'] = (!empty($newInstance['video'])) ? $newInstance['video'] : '';
         $instance['parent'] = (!empty($newInstance['parent'])) ? $newInstance['parent'] : '';
         $instance['width'] = (!empty($newInstance['width'])) ? $newInstance['width'] : '';
         $instance['height'] = (!empty($newInstance['height'])) ? $newInstance['height'] : '';
