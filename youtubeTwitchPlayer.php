@@ -62,27 +62,33 @@ function register_twitch_chat_widget() {
 }
 add_action('widgets_init', 'register_twitch_chat_widget');
 
+//Shortcode pour le bouton d'abonnement complet : renseigner le nom de la chaîne
 function yts_sub_btn_all($atts) {
     return '<div class="g-ytsubscribe" data-channel="'. $atts['channel'] .'" data-layout="full" data-count="default"></div>';
 }
 
+//Shortcode pour le bouton d'abonnement sans le compteur d'abonnés : renseigner le nom de la chaîne
 function yts_sub_btn_no_count($atts) {
     return '<div class="g-ytsubscribe" data-channel="'. $atts['channel'] .'" data-layout="full" data-count="hidden"></div>';
 }
 
+//Shortcode pour le bouton d'abonnement sans la photo et le nom de la chaîne : renseigner le nom de la chaîne
 function yts_sub_btn_no_layout($atts) {
     return '<div class="g-ytsubscribe" data-channel="'. $atts['channel'] .'" data-layout="default" data-count="default"></div>';
 }
 
+//Shortcode pour le bouton d'abonnement seul : renseigner le nom de la chaîne
 function yts_sub_btn_none($atts) {
     return '<div class="g-ytsubscribe" data-channel="'. $atts['channel'] .'" data-layout="default" data-count="hidden"></div>';
 }
 
+//Shortcode pour l'intégration de la chaîne Youtube : renseigner l'identifiant de la vidéo Youtube
 function yts_video_short($atts) {
     return '<iframe width="500" height="300" src="https://www.youtube.com/embed/'. $atts['video'] . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen></iframe>';
 }
 
+//Enregistrement de tout les shortcodes Youtube
 function add_shortcodes_yts() {
     add_shortcode('SubscribeAll', 'yts_sub_btn_all');
     add_shortcode('SubscribeNoCount', 'yts_sub_btn_no_count');
@@ -92,23 +98,28 @@ function add_shortcodes_yts() {
 }
 add_action('widgets_init', 'add_shortcodes_yts');
 
+//Shortcode pour l'intégration d'un live Twitch : renseigner la chaîne Twitch et l'url de votre site
 function twc_live_short($atts) {
     return '<iframe src="https://player.twitch.tv/?channel='. $atts['channel'] .'&parent='
         . $atts['parent'] .'" allowfullscreen="true" scrolling="yes" height="300" width="500"></iframe>';
 }
 
+//Shortcode pour l'intégration d'une vidéo Twitch : renseigner l'identifiant de la vidéo Twitch et l'url de votre site
 function twc_video_short($atts) {
     return '<iframe src="https://player.twitch.tv/?video='.$atts['video'].'&parent='
         . $atts['parent'] .'" height="300" width="500" allowfullscreen="true"></iframe>';
 }
 
+//Shortcode pour l'intégration d'un chat Twitch : renseigner la chaîne Twitch et l'url de votre site
 function twc_chat_short($atts) {
     return '<iframe src="https://www.twitch.tv/embed/'. $atts['channel'] .'/chat?parent='. $atts['parent'] .'" height="500" width="300"></iframe>';
 }
 
+//Enregistrement de tout les shortcodes Twitch
 function add_shortcodes_twc() {
     add_shortcode('TwitchLive', 'twc_live_short');
     add_shortcode('TwitchVideo', 'twc_video_short');
     add_shortcode('TwitchChat', 'twc_chat_short');
 }
 add_action('widgets_init', 'add_shortcodes_twc');
+

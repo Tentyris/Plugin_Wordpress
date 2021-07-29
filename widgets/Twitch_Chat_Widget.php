@@ -10,6 +10,7 @@ class Twitch_Chat_Widget extends WP_Widget {
         );
     }
 
+    //Création du widget avec les informations récupérées
     public function widget( $args, $instance ) {
 
         echo $args['before_widget'];
@@ -28,6 +29,7 @@ class Twitch_Chat_Widget extends WP_Widget {
         echo $args['after_widget'];
     }
 
+    //Formulaire de personnalisation du widget
     public function form( $instance ) {
         $title = isset($instance[ 'title' ]) ? $instance[ 'title' ] : '';
         $channel = isset($instance[ 'channel' ]) ? $instance[ 'channel' ] : '';
@@ -36,17 +38,19 @@ class Twitch_Chat_Widget extends WP_Widget {
         $parent = isset($instance['parent']) ? $instance['parent'] : '';
         ?>
         <p>
+            <!-- Champ de saisie pour renseigner le titre du widget -->
             <label for="<?= $this->get_field_id('title') ?>">
                 <?php esc_attr_e('Titre : ', 'ytstwc_domain'); ?>
             </label>
             <input
-                class="widefat"
-                type="text"
-                name="<?= $this->get_field_name('title') ?>"
-                value="<?= esc_attr($title) ?>"
-                id="<?= $this->get_field_name('title') ?>">
+                    class="widefat"
+                    type="text"
+                    name="<?= $this->get_field_name('title') ?>"
+                    value="<?= esc_attr($title) ?>"
+                    id="<?= $this->get_field_name('title') ?>">
         </p>
         <p>
+            <!-- Champ de saisie pour renseigner le nom de votre site -->
             <label for="<?= $this->get_field_id('parent') ?>">
                 <?php esc_attr_e('Nom de votre site : ', 'twitch_domain'); ?>
             </label>
@@ -58,26 +62,29 @@ class Twitch_Chat_Widget extends WP_Widget {
                     id="<?= $this->get_field_name('parent') ?>">
         </p>
         <p>
+            <!-- Champ de saisie pour renseigner le nom de la chaîne -->
             <label for="<?= $this->get_field_id('channel') ?>">
                 <?php esc_attr_e('Chaîne : ', 'ytstwc_domain'); ?>
             </label>
             <input
-                class="widefat"
-                type="text"
-                name="<?= $this->get_field_name('channel') ?>"
-                value="<?= esc_attr($channel) ?>"
-                id="<?= $this->get_field_name('channel') ?>">
+                    class="widefat"
+                    type="text"
+                    name="<?= $this->get_field_name('channel') ?>"
+                    value="<?= esc_attr($channel) ?>"
+                    id="<?= $this->get_field_name('channel') ?>">
         </p>
         <p>
+            <!-- Champ de saisie pour renseigner la largeur du widget -->
             <label for="<?= $this->get_field_id('width') ?>">Largeur</label>
             <input
-                class="widefat"
-                type="text"
-                name="<?= $this->get_field_name('width') ?>"
-                value="<?= esc_attr($width) ?>"
-                id="<?= $this->get_field_name('width') ?>">
+                    class="widefat"
+                    type="text"
+                    name="<?= $this->get_field_name('width') ?>"
+                    value="<?= esc_attr($width) ?>"
+                    id="<?= $this->get_field_name('width') ?>">
         </p>
         <p>
+            <!-- Champ de saisie pour renseigner la hauteur du widget -->
             <label for="<?= $this->get_field_id('height') ?>">Hauteur</label>
             <input
                     class="widefat"
@@ -90,6 +97,7 @@ class Twitch_Chat_Widget extends WP_Widget {
         <?php
     }
 
+    //Mise à jour des informations avec celles rentrées dans le formulaire
     public function update( $newInstance, $oldInstance ) {
         $instance = array();
         $instance['parent'] = (!empty($newInstance['parent'])) ? $newInstance['parent'] : '';

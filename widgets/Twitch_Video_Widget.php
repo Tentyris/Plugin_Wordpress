@@ -10,6 +10,7 @@ class Twitch_Video_Widget extends WP_Widget {
         );
     }
 
+    //Création du widget avec les informations récupérées
     public function widget( $args, $instance ) {
 
         echo $args['before_widget'];
@@ -29,6 +30,7 @@ class Twitch_Video_Widget extends WP_Widget {
         echo $args['after_widget'];
     }
 
+    //Formulaire de personnalisation du widget
     public function form( $instance ) {
         $title = isset($instance[ 'title' ]) ? $instance[ 'title' ] : '';
         $video = isset($instance[ 'video' ]) ? $instance[ 'video' ] : '';
@@ -37,28 +39,31 @@ class Twitch_Video_Widget extends WP_Widget {
         $parent = isset($instance['parent']) ? $instance['parent'] : '';
         ?>
         <p>
+            <!-- Champ de saisie pour renseigner le titre du widget -->
             <label for="<?= $this->get_field_id('title') ?>">
                 <?php esc_attr_e('Titre : ', 'ytstwc_domain'); ?>
             </label>
             <input
-                class="widefat"
-                type="text"
-                name="<?= $this->get_field_name('title') ?>"
-                value="<?= esc_attr($title) ?>"
-                id="<?= $this->get_field_name('title') ?>">
+                    class="widefat"
+                    type="text"
+                    name="<?= $this->get_field_name('title') ?>"
+                    value="<?= esc_attr($title) ?>"
+                    id="<?= $this->get_field_name('title') ?>">
         </p>
         <p>
+            <!-- Champ de saisie pour renseigner l'identifiant de la vidéo -->
             <label for="<?= $this->get_field_id('video') ?>">
                 <?php esc_attr_e('Identifiant vidéo : ', 'ytstwc_domain'); ?>
             </label>
             <input
-                class="widefat"
-                type="text"
-                name="<?= $this->get_field_name('video') ?>"
-                value="<?= esc_attr($video) ?>"
-                id="<?= $this->get_field_name('video') ?>">
+                    class="widefat"
+                    type="text"
+                    name="<?= $this->get_field_name('video') ?>"
+                    value="<?= esc_attr($video) ?>"
+                    id="<?= $this->get_field_name('video') ?>">
         </p>
         <p>
+            <!-- Champ de saisie pour renseigner le nom de votre site -->
             <label for="<?= $this->get_field_id('parent') ?>">
                 <?php esc_attr_e('Nom de votre site : ', 'twitch_video_domain'); ?>
             </label>
@@ -70,24 +75,27 @@ class Twitch_Video_Widget extends WP_Widget {
                     id="<?= $this->get_field_name('parent') ?>">
         </p>
         <p>
+            <!-- Champ de saisie pour renseigner la largeur du widget -->
             <label for="<?= $this->get_field_id('width') ?>">Largeur</label>
             <input
-                class="widefat"
-                type="text"
-                name="<?= $this->get_field_name('width') ?>"
-                value="<?= esc_attr($width) ?>"
-                id="<?= $this->get_field_name('width') ?>">
+                    class="widefat"
+                    type="text"
+                    name="<?= $this->get_field_name('width') ?>"
+                    value="<?= esc_attr($width) ?>"
+                    id="<?= $this->get_field_name('width') ?>">
         </p>
         <p>
+            <!-- Champ de saisie pour renseigner la hauteur du widget -->
             <label for="<?= $this->get_field_id('height') ?>">Hauteur</label>
             <input
-                class="widefat"
-                type="text"
-                name="<?= $this->get_field_name('height') ?>"
-                value="<?= esc_attr($height) ?>"
-                id="<?= $this->get_field_name('height') ?>">
+                    class="widefat"
+                    type="text"
+                    name="<?= $this->get_field_name('height') ?>"
+                    value="<?= esc_attr($height) ?>"
+                    id="<?= $this->get_field_name('height') ?>">
         </p>
         <p>
+            <!-- Checkbox pour autoriser ou non le plein écran -->
             <label for="<?php echo $this->get_field_id( 'fullscreen' ); ?>">
                 <?php esc_attr_e( 'fullscreen :', 'twitch_video_domain' ); ?>
             </label>
@@ -101,6 +109,7 @@ class Twitch_Video_Widget extends WP_Widget {
         <?php
     }
 
+    //Mise à jour des informations avec celles rentrées dans le formulaire
     public function update( $newInstance, $oldInstance ) {
         $instance = array();
         $instance['title'] = (!empty($newInstance['title'])) ? $newInstance['title'] : '';

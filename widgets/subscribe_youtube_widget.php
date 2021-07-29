@@ -13,6 +13,7 @@ class Subscribe_Youtube_Widget extends WP_Widget {
         );
     }
 
+    //Création du widget avec les informations récupérées
     public function widget( $args, $instance ) {
 
         echo $args['before_widget'];
@@ -27,6 +28,7 @@ class Subscribe_Youtube_Widget extends WP_Widget {
         echo $args['after_widget'];
     }
 
+    //Formulaire de personnalisation du widget
     public function form( $instance ) {
         $title = (!empty($instance[ 'title' ])) ? $instance['title'] : '';
         $channel = (!empty($instance[ 'channel' ])) ? $instance['channel'] : '';
@@ -34,6 +36,7 @@ class Subscribe_Youtube_Widget extends WP_Widget {
         $layout = (!empty($instance[ 'layout' ])) ? $instance['layout'] : '';
         ?>
         <p>
+            <!-- Champ de saisie pour renseigner le titre du widget -->
             <label for="<?php echo $this->get_field_id( 'title' ); ?>">
                 <?php esc_attr_e( 'Title:', 'yts_domain' ); ?>
             </label>
@@ -44,6 +47,7 @@ class Subscribe_Youtube_Widget extends WP_Widget {
                    value="<?php echo esc_attr( $title ); ?>" />
         </p>
         <p>
+            <!-- Champ de saisie pour renseigner le nom de la chaîne -->
             <label for="<?php echo $this->get_field_id( 'channel' ); ?>">
                 <?php esc_attr_e( 'channel:', 'yts_domain' ); ?>
             </label>
@@ -54,6 +58,7 @@ class Subscribe_Youtube_Widget extends WP_Widget {
                    value="<?php echo esc_attr( $channel ); ?>" />
         </p>
         <p>
+            <!-- Checkbox pour afficher ou non le compteur d'abonnés -->
             <label for="<?php echo $this->get_field_id( 'count' ); ?>">
                 <?php esc_attr_e( 'count:', 'yts_domain' ); ?>
             </label>
@@ -61,9 +66,10 @@ class Subscribe_Youtube_Widget extends WP_Widget {
                    id="<?php echo $this->get_field_id( 'count' ); ?>"
                    name="<?php echo $this->get_field_name( 'count' ); ?>"
                    type="checkbox"
-                   <?php checked( $instance[ 'count' ], 'on' ); ?> />
+                <?php checked( $instance[ 'count' ], 'on' ); ?> />
         </p>
         <p>
+            <!-- Checkbox pour afficher ou non la photo et le nom de la chaîne -->
             <label for="<?php echo $this->get_field_id( 'layout' ); ?>">
                 <?php esc_attr_e( 'layout:', 'yts_domain' ); ?>
             </label>
@@ -71,11 +77,12 @@ class Subscribe_Youtube_Widget extends WP_Widget {
                    id="<?php echo $this->get_field_id( 'layout' ); ?>"
                    name="<?php echo $this->get_field_name( 'layout' ); ?>"
                    type="checkbox"
-                   <?php checked( $instance[ 'layout' ], 'on' ); ?> />
+                <?php checked( $instance[ 'layout' ], 'on' ); ?> />
         </p>
         <?php
     }
 
+    //Mise à jour des informations avec celles rentrées dans le formulaire
     public function update( $new_instance, $old_instance ) {
         $instance = array();
         $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
